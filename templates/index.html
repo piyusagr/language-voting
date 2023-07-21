@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Language Voting App</title>
+  </head>
+  <body >
+
+    {% comment %}   NAV BAR   {% endcomment %}
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Programming Language Voting APP</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#instruction">Instruction</a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link" href="#result">Result</a>
+            </li> 
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% comment %}  PART {% endcomment %}
+    
+    <div class="container-fluid">
+     
+      <div class="row">
+        <div class="col-md-6" style="margin:  6rem auto">
+          <div class="card">
+            <img
+              src="{%static 'images.jpeg'%}"
+              class="img-fluid rounded-start"
+              alt="programlangimg"
+              {% comment %} style="height: 20rem" {% endcomment %}
+            />
+            <div class="card-body">
+              <form method="GET" action="{%url 'getquery'%}">
+                <div class="form-group">
+                  <input list="languages" class="form-control" name="languages" />
+                  <datalist id="languages">
+                    {% for lang in arr%}
+                     <option value="{{lang}}">
+                    {%endfor%}
+                  </datalist>
+                </div>
+                <div class="row" style="margin: 0.5rem auto;">
+                  <div class="col-md-6">
+                    <button
+                      type="submit"
+                      class="btn btn-success col-md-6"
+                      style="margin: 0.2rem auto; display: block"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <button
+                      type="reset"
+                      class="btn btn-danger col-md-6"
+                      style="margin: 0.2rem auto; display: block"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+
+    {% comment %} ABOUT PART {% endcomment %}
+
+    <div class="row" >
+      <div class="col-md-6" style="margin: 0 auto; text-align:center;">
+        <div class="badge bg-success" id="about" name="about"style="display:block; text-align:center; ">
+          <p><h3>ABOUT<h3><p>
+          </div>
+        <hr>
+        <p class="lead">
+          This is a programming language voting app between  C, C++, Python, PHP, Java, SQL, Javascript, MongoDB, Postgres, React, Node, Django. </p>
+      </div>
+    </div>
+
+    {% comment %} INSTRUCTION PART {% endcomment %}
+    
+    <div class="row">
+      <div class="col-md-6" style="margin:2rem auto 0 auto; text-align:center;">
+        <div class="badge bg-danger"  id="instruction"name="instruction"style="display:block; text-align:center; ">
+          <p><h3>INSTRUCTION<h3><p>
+          </div>
+        <hr>
+        <p class="lead">
+          Select the favourite language and vote to see results.</p>
+      </div>
+    </div>
+
+
+     {% comment %} part result {% endcomment %}
+     <div class="row" id="result">
+      <div class="col-md-6" style="margin: 1rem auto; text-align:center;">
+        <div class="badge bg-warning"  name="result"style="display:block; text-align:center; ">
+          <p><h3>RESULT<h3>
+            
+          </p>
+          </div>
+        <hr>
+        <div vlass="table-responsive">
+          <table class="table table-hover fs-5">
+            <thead class="bg-dark text-capitalized text-light" >
+              <tr>
+                <th scope="col ">#</th>
+                <th scope="col ">Program</th>
+                <th scope="col">Frequency</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for key,value in globalcnt.items%}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{key}}</td>
+                  <td>{{value}}</td>
+                </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% comment %} FOOTER PART {% endcomment %}
+
+    <div class="container-fluid" style="margin: 2rem auto; text-align: center">
+      <div class="row">
+        <footer class="fixed-bottom navbar-secondary bg-secondary" style="color:white;">
+          <p style="font-size:1.5rem;">Made By Piyush Agrawal...</p>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
